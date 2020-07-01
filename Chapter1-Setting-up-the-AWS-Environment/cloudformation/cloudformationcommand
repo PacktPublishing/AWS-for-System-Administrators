@@ -1,0 +1,18 @@
+# Validate the template to make sure there is no syntax error 
+
+aws cloudformation validate-template --template-body file://ec2-instance.yml
+
+# Create the stack by specifying the template file and the necessary IAM capabilities 
+
+aws cloudformation create-stack --stack-name first-ec2-instance-creation --template-body file://ec2-instance.yml  --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
+
+# Wait till the stack creation is complete 
+
+aws cloudformation wait stack-create-complete --stack-name first-ec2-instance-creation
+aws cloudformation describe-stacks --stack-name first-ec2-instance-creation
+aws cloudformation describe-stacks --stack-name first-ec2-instance-creation --query 'Stacks[].[StackName,StackStatus]' --output text
+
+
+# Verify all the resources is created successfully
+
+aws cloudformation describe-stack-resources --stack-name first-ec2-instance-creation
