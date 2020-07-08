@@ -1,0 +1,54 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CloudFormation Script to Create User, Groups and IAM Policy to restrict user to specific instance family"
+
+Resources:
+  EC2LimitedAccess: # create a GROUP for our developers
+    Type: "AWS::IAM::Group"
+    Properties:
+      GroupName: "EC2LimitedAccess"
+
+  EC2LimitedAccessPolicy: # grant limited access to EC2
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: "EC2LimitedAccess"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+            # Limit User access to run, stop and start instance
+          - Effect: "Allow"
+            Action:
+              - "ec2:RunInstances"
+              - "ec2:StartInstances"
+              - "ec2:StopInstances"
+            Resource: "*"
+            Condition:
+              StringEquals:
+                ec2:InstanceType:
+                  - "t2.small"
+                  - "t2.medium"
+
+
+
+      Groups:
+        - EC2LimitedAccess
+
+  plakheraprod:
+    Type: "AWS::IAM::User"
+    Properties:
+      UserName: "plakhera.prod"
+      LoginProfile:
+        Password: "abc123!!!!"
+        PasswordResetRequired: True
+      Groups:
+        - EC2LimitedAccess
+
+  plakheradev:
+    Type: "AWS::IAM::User"
+    Properties:
+      UserName: "plakhera.dev"
+      LoginProfile:
+        Password: "abc123!!!!"
+        PasswordResetRequired: True
+      Groups:
+        - EC2LimitedAccess
