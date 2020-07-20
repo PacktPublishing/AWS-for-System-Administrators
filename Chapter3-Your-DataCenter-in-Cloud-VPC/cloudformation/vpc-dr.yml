@@ -1,0 +1,85 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Second VPC for DR"
+
+Parameters:
+  VpcCidrPrefix:
+    Type: "String"
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})"
+
+Resources:
+  Vpc:
+    Type: "AWS::EC2::VPC"
+    Properties:
+      CidrBlock: !Join [ "", [!Ref VpcCidrPrefix, ".0.0/16"]]
+      EnableDnsSupport: True
+      EnableDnsHostnames: True
+      Tags:
+      - Key: Name
+        Value: !Ref "AWS::StackName"
+
+ 
+  PublicsubnetA:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      AvailabilityZone: !Select [0, !GetAZs ""]
+      CidrBlock: !Join [ "", [!Ref VpcCidrPrefix, ".1.0/24"]] 
+      MapPublicIpOnLaunch: true
+      Tags:
+      - Key: Name
+        Value: vpc-dr-us-east-2a
+      VpcId: !Ref Vpc
+
+  PrivatesubnetB:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      AvailabilityZone: !Select [1, !GetAZs ""]
+      CidrBlock: !Join [ "", [!Ref VpcCidrPrefix, ".2.0/24"]] 
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value: vpc-dr-us-east-2b
+      VpcId: !Ref Vpc
+
+  PrivatesubnetC:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      AvailabilityZone: !Select [2, !GetAZs ""]
+      CidrBlock: !Join [ "", [!Ref VpcCidrPrefix, ".3.0/24"]] 
+      MapPublicIpOnLaunch: false
+      Tags:
+      - Key: Name
+        Value: vpc-dr-us-east-2c
+      VpcId: !Ref Vpc
+
+  
+Outputs:
+  VpcId:
+      Description : "VPC ID"
+      Value:  !Ref Vpc
+      Export:                               
+        Name: !Sub ${AWS::StackName}-VpcId
+
+  VpcCidr:
+      Description : "VPC CIDR"
+      Value:  !GetAtt Vpc.CidrBlock
+      Export:                               
+        Name: !Sub ${AWS::StackName}-VpcCidr
+
+  PublicsubnetA:
+      Description : "Public A Subnet ID"
+      Value:  !Ref PublicsubnetA
+      Export:
+        Name: !Sub ${AWS::StackName}-PublicsubnetA
+
+  PrivatesubnetB:
+      Description : "Private B Subnet ID"
+      Value:  !Ref PrivatesubnetB
+      Export:
+        Name: !Sub ${AWS::StackName}-PrivatesubnetB
+
+  PrivatesubnetC:
+      Description : "Private C Subnet ID"
+      Value:  !Ref PrivatesubnetB
+      Export:
+        Name: !Sub ${AWS::StackName}-PrivatesubnetC
