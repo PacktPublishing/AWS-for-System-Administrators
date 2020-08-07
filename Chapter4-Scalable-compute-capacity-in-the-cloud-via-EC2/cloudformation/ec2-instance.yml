@@ -1,0 +1,42 @@
+---
+Description: EC2 Instance creation using CloudFormation
+Parameters:
+  NetworkStack:
+    Type: "String"
+    Description: "Creating Networking Stack for Resources"
+Resources:
+  SecurityGrouptoallowsshtraffic:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: prod-sg
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+        Description: To allow ssh traffic from anywhere
+      GroupDescription: Security Group for prod environment
+      VpcId: 
+        Fn::ImportValue:               
+          !Sub ${NetworkStack}-VpcId 
+  EC2InstanceProdEnv:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: "us-east-2a"
+      BlockDeviceMappings:
+      - DeviceName: "/dev/sda1"
+        Ebs:
+          DeleteOnTermination: 'true'
+          VolumeSize: '8'
+          VolumeType: gp2
+      ImageId: "ami-07c8bc5c1ce9598c3"
+      InstanceType: "t2.micro"
+      KeyName: "vpc-dr"
+      NetworkInterfaces:
+      - Description: "Primary network interface"
+        DeviceIndex: "0" 
+        SubnetId: 
+           Fn::ImportValue: 
+             !Sub ${NetworkStack}-PublicsubnetA 
+        GroupSet:
+        - Ref: SecurityGrouptoallowsshtraffic
