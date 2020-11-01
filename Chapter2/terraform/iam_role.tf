@@ -1,3 +1,6 @@
+provider "aws" {
+  region = "us-west-2"
+}
 resource "aws_iam_role" "test_iam_role" {
   name = "test_Iam_role"
 
