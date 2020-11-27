@@ -15,6 +15,7 @@ apt-get update
 which python3 2>/dev/null || { apt-get install -y python3; }
 which curl 2>/dev/null || { apt-get install -y curl; }
 which jq 2>/dev/null || { apt-get install -y jq; }
+which unzip 2>/dev/null || { apt-get install -y unzip; }
 
 # Install pip3
 apt-get install -y python3-pip
@@ -28,6 +29,7 @@ unzip awscliv2.zip
 sudo ./aws/install -i /usr/local/aws-cli -b /usr/local/bin
 
 # Check the aws version
+echo "#########################################################################################################################"
 echo "Check the AWS Cli Version"
 aws --version
 
@@ -42,10 +44,11 @@ function installing-terraform() {
   then
      echo "Terraform is already installed"
   else
-  Terraform_LATEST_Ver="$(curl -sL https://releases.hashicorp.com/terraform/index.json | jq -r '.versions[].builds[].url' | sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n -k 5,5n | egrep -v 'rc|beta' | egrep 'linux.*amd64' |tail -1)"
-  curl -sL ${Terraform_LATEST_Ver} > /tmp/terraform.zip
+  Terraform_12_Ver="$(curl -sL https://releases.hashicorp.com/terraform/index.json | jq -r '.versions[].builds[].url' | sort -t. -k 1,1n -k 2,2n -k 3,3n -k 4,4n -k 5,5n | egrep '0.12' |egrep -v 'rc|beta' | egrep 'linux.*amd64' |tail -1)"
+  curl -sL ${Terraform_12_Ver} > /tmp/terraform.zip
   unzip /tmp/terraform.zip
   cp terraform /usr/local/bin
+  echo "#########################################################################################################################"
   echo "Terraform Version"
   terraform version
 fi
