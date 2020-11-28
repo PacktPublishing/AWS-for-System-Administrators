@@ -9,6 +9,8 @@ aws cloudformation create-stack --stack-name first-ec2-instance-creation --templ
 # Wait till the stack creation is complete 
 
 aws cloudformation wait stack-create-complete --stack-name first-ec2-instance-creation
+
+# To describe a particular stack
 aws cloudformation describe-stacks --stack-name first-ec2-instance-creation
 aws cloudformation describe-stacks --stack-name first-ec2-instance-creation --query 'Stacks[].[StackName,StackStatus]' --output text
 
