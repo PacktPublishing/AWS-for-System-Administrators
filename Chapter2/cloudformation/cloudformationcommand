@@ -1,0 +1,21 @@
+# Validate the template to make sure there is no syntax error 
+
+aws cloudformation validate-template --template-body file://iam-resource-creation.yml
+
+# Create the stack by specifying the template file and the necessary IAM capabilities 
+
+aws cloudformation create-stack --stack-name iam-resource-creation --template-body file://iam-resource-creation.yml  --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM"
+
+# Wait till the stack creation is complete 
+
+aws cloudformation wait stack-create-complete --stack-name iam-resource-creation
+
+# To describe a particular stack
+aws cloudformation describe-stacks --stack-name iam-resource-creation
+
+
+# Verify all the resources is created successfully
+aws cloudformation describe-stack-resources --stack-name iam-resource-creation
+
+# To delete a stack
+aws cloudformation delete-stack --stack-name iam-resource-creation
