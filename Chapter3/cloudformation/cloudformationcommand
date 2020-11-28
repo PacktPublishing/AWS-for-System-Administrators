@@ -1,0 +1,13 @@
+# Validate the template to make sure there is no syntax error 
+
+aws cloudformation validate-template --template-body file://vpc-dr.yml
+
+# Create the stack by specifying the template file and the necessary IAM capabilities 
+
+aws cloudformation create-stack --stack-name vpc-dr --template-body file://vpc-dr.yml --parameters ParameterKey=VpcCidrPrefix,ParameterValue=172.16
+
+# To get the list of exports, which are VPCId, CidrBlock, and created subnets, run the following command
+aws cloudformation list-exports --query 'Exports[].[Name,Value]' --output table
+
+# To delete a stack
+aws cloudformation delete-stack --stack-name vpc-dr
