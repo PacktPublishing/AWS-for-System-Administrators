@@ -31,7 +31,6 @@ Resources:
           VolumeType: gp2
       ImageId: "ami-07c8bc5c1ce9598c3"
       InstanceType: "t2.micro"
-      KeyName: "vpc-dr"
       NetworkInterfaces:
       - Description: "Primary network interface"
         DeviceIndex: "0" 

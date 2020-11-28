@@ -1,0 +1,10 @@
+# Validate the template to make sure there is no syntax error 
+
+aws cloudformation validate-template --template-body file://ec2-instance.yml
+
+# Create the stack by specifying the template file and the necessary IAM capabilities 
+
+aws cloudformation create-stack --stack-name ec2-dr --template-body file://ec2-instance.yml --parameters ParameterKey=NetworkStack,ParameterValue=vpc-dr
+
+# To delete a stack
+aws cloudformation delete-stack --stack-name ec2-dr
