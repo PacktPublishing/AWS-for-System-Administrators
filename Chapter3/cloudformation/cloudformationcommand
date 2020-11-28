@@ -9,5 +9,9 @@ aws cloudformation create-stack --stack-name vpc-dr --template-body file://vpc-d
 # To get the list of exports, which are VPCId, CidrBlock, and created subnets, run the following command
 aws cloudformation list-exports --query 'Exports[].[Name,Value]' --output table
 
+# To create Internet Gateway and Route table
+aws cloudformation create-stack --stack-name gateway-route --template-body file://gateway-route.yml --parameters ParameterKey=NetworkStack,ParameterValue=vpc-dr
+
 # To delete a stack
 aws cloudformation delete-stack --stack-name vpc-dr
+aws cloudformation delete-stack --stack-name gateway-route
