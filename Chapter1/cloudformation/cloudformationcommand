@@ -12,7 +12,8 @@ aws cloudformation wait stack-create-complete --stack-name first-ec2-instance-cr
 aws cloudformation describe-stacks --stack-name first-ec2-instance-creation
 aws cloudformation describe-stacks --stack-name first-ec2-instance-creation --query 'Stacks[].[StackName,StackStatus]' --output text
 
-
 # Verify all the resources is created successfully
-
 aws cloudformation describe-stack-resources --stack-name first-ec2-instance-creation
+
+# To delete a stack
+aws cloudformation delete-stack --stack-name first-ec2-instance-creation
