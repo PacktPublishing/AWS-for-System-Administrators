@@ -59,5 +59,5 @@ resource "aws_instance" "test_ec2_role" {
   ami                  = "ami-0d5fad86866a3a449"
   instance_type        = "t2.micro"
   iam_instance_profile = "${aws_iam_instance_profile.my-test-iam-instance-profile.name}"
-  key_name	       = "packtpub"	
+  key_name             = "packtpub"
 }
