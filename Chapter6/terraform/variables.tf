@@ -7,5 +7,5 @@ variable "subnet2" {
 }
 
 variable "target_group_arn" {
-  default = "arn:aws:elasticloadbalancing:us-west-2:279523694119:targetgroup/prod-alb/584e98af70febd0c"
+  default = "arn:aws:elasticloadbalancing:us-west-2:XXXXXXXXX:targetgroup/prod-alb/584e98af70febd0c"
 }
