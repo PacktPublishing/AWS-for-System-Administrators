@@ -4,7 +4,7 @@
 
 This is the code repository for [AWS for System Administrators](https://www.packtpub.com/product/aws-for-system-administrators/9781800201538?utm_source=github&utm_medium=repository&utm_campaign=9781800201538), published by Packt.
 
-**Build, automate, and manage your infrastructure on the most popular Cloud platform - AWS**
+** AWS for System Administrators, published by Packt**
 
 ## What is this book about?
 Amazon Web Services (AWS) is one of the most popular and efficient cloud platforms for administering and deploying your applications to make them resilient and robust. AWS for System Administrators will help you to learn several advanced cloud administration concepts for deploying, managing, and operating highly available systems on AWS.
