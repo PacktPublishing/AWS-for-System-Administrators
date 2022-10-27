@@ -71,3 +71,7 @@ Click on the following link to see the Code in Action:
 **Prashant Lakhera**
 is an RHCA (Red Hat Certified Architect) seasoned Linux and Open Source specialist with over 15+ years of enterprise open-source experience. Making a positive impact in the world is important to me; that’s why I share my knowledge with others through my website, blog post, and YouTube channel, which also helps me dig deep into a topic and expand my knowledge. In his daily job, he manages the team which is in charge of Large Scale AWS Deployment. The team manages, monitors, and upgrades the large fleet of AWS Servers. He also performed the large-scale migration of on-premise datacenter resources to AWS.
 
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781800201538">https://packt.link/free-ebook/9781800201538 </a> </p>
